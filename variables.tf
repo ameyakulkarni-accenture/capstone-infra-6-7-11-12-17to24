@@ -17,3 +17,9 @@ variable "tags" {
     Project = "capstone"
   }
 }
+
+variable "logs_bucket_name" {
+  description = "Globally unique name for the logs bucket"
+  type        = string
+  default     = "capstone-logs-amea-2997"
+}
