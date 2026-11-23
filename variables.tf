@@ -27,7 +27,7 @@ variable "logs_bucket_name" {
 variable "github_repo" {
   description = "GitHub repo (owner/name) allowed to assume the CI role"
   type        = string
-  default     = "ameyakulkarni-accenture/capstone-infra-6-7-11-12-17to24"
+  default     = "ameyakulkarni-accenture@355185031/capstone-infra-6-7-11-12-17to24@1468862239"
 }
 
 variable "state_bucket_name" {
