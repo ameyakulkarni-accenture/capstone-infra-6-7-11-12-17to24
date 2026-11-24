@@ -35,3 +35,15 @@ variable "state_bucket_name" {
   type        = string
   default     = "capstone-tfstate-ameya-299792"
 }
+
+variable "vpc_cidr" {
+  description = "CIDR block for the VPC"
+  type        = string
+  default     = "10.0.0.0/16"
+}
+
+variable "instance_type" {
+  description = "EC2 instance type for the web servers"
+  type        = string
+  default     = "t3.micro"
+}
