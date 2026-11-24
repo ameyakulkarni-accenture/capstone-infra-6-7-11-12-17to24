@@ -28,3 +28,18 @@ variable "instance_profile_name" {
   description = "IAM instance profile to attach"
   type        = string
 }
+
+variable "log_group_access" {
+  description = "CloudWatch log group for the nginx access log"
+  type        = string
+}
+
+variable "log_group_error" {
+  description = "CloudWatch log group for the nginx error log"
+  type        = string
+}
+
+variable "logs_bucket_name" {
+  description = "S3 bucket for log backups (used from project 19)"
+  type        = string
+}

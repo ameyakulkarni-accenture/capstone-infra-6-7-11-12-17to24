@@ -29,6 +29,9 @@ module "compute" {
   subnet_ids            = module.network.public_subnet_ids
   instance_sg_id        = module.network.instance_sg_id
   instance_profile_name = module.iam.instance_profile_name
+  log_group_access      = module.monitoring.log_group_access
+  log_group_error       = module.monitoring.log_group_error
+  logs_bucket_name      = module.storage.bucket_name
 }
 
 module "alb" {
@@ -38,4 +41,9 @@ module "alb" {
   subnet_ids   = module.network.public_subnet_ids
   alb_sg_id    = module.network.alb_sg_id
   instance_ids = module.compute.instance_ids
+}
+
+module "monitoring" {
+  source      = "./modules/monitoring"
+  name_prefix = var.name_prefix
 }
