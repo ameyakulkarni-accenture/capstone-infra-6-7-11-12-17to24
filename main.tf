@@ -43,7 +43,12 @@ module "alb" {
   instance_ids = module.compute.instance_ids
 }
 
+
 module "monitoring" {
-  source      = "./modules/monitoring"
-  name_prefix = var.name_prefix
+  source                  = "./modules/monitoring"
+  name_prefix             = var.name_prefix
+  aws_region              = var.aws_region
+  instance_ids            = module.compute.instance_ids
+  alb_arn_suffix          = module.alb.arn_suffix
+  target_group_arn_suffix = module.alb.target_group_arn_suffix
 }
