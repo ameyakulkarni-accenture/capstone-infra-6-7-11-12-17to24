@@ -21,3 +21,7 @@ output "target_group_arn" {
 output "instance_ids" {
   value = module.compute.instance_ids
 }
+
+output "github_apply_role_arn" {
+  value = module.github_oidc.apply_role_arn
+}
