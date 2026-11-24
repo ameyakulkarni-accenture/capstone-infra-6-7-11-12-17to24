@@ -38,3 +38,17 @@ cat > /opt/aws/amazon-cloudwatch-agent/etc/capstone-agent.json <<'CFG'
 CFG
 
 /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/etc/capstone-agent.json -s
+
+# Project 19: back up nginx logs to S3 every 5 minutes
+dnf install -y cronie
+systemctl enable --now crond
+
+cat > /usr/local/bin/backup-logs.sh <<'SCRIPT'
+#!/bin/bash
+TOKEN=$(curl -sX PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 60")
+ID=$(curl -sH "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/instance-id)
+aws s3 sync /var/log/nginx "s3://${logs_bucket}/backups/$ID/" --region ap-northeast-3
+SCRIPT
+chmod +x /usr/local/bin/backup-logs.sh
+
+echo "*/5 * * * * root /usr/local/bin/backup-logs.sh >> /var/log/backup-logs.log 2>&1" > /etc/cron.d/backup-logs
